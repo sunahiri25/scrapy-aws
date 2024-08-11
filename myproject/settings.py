@@ -119,11 +119,21 @@ FEED_EXPORT_ENCODING = "utf-8"
 #     'scrapeops_scrapy.extension.ScrapeOpsMonitor': 500, 
 # }
 # Desired file format
-FEED_FORMAT = "csv"
+# FEED_FORMAT = "csv"
  
-# Name of the file where data extracted is stored, time is appended to avoid overwriting
-FEED_URI = "infodoanhnghiep_%(time)s.csv" % {'time': datetime.datetime.now().strftime('%Y%m%d%H%M%S')}
+# # Name of the file where data extracted is stored, time is appended to avoid overwriting
+# FEED_URI = "infodoanhnghiep_%(time)s.csv" % {'time': datetime.datetime.now().strftime('%Y%m%d%H%M%S')}
 
 RETRY_ENABLED = True
 RETRY_HTTP_CODES = [429]  # Thử lại khi gặp lỗi 429
 RETRY_TIMES = 5  # Số lần thử lại
+
+
+FEEDS = {
+    "s3://businessbucketscrapy/%(name)s/%(name)s_%(time)s.csv": {
+    "format": "csv",
+    }
+}
+
+AWS_ACCESS_KEY_ID = 'AKIA6DZW3JDPIZU4PYFX'
+AWS_SECRET_ACCESS_KEY = '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'
