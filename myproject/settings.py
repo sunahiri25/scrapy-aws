@@ -92,12 +92,12 @@ REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
 
-# DOWNLOADER_MIDDLEWARES = {
-#     # ... Other middlewares
-#     # 'scratest.middlewares.UARotatorMiddleware': 400,
-#     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
-#     'scrapy_user_agents.middlewares.RandomUserAgentMiddleware': 400,
-# }
+DOWNLOADER_MIDDLEWARES = {
+    # ... Other middlewares
+    # 'scratest.middlewares.UARotatorMiddleware': 400,
+    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+    'scrapy_user_agents.middlewares.RandomUserAgentMiddleware': 400,
+}
 
 # Desired file format
 FEED_FORMAT = "csv"
@@ -107,14 +107,14 @@ FEED_URI = "business_%(time)s.csv" % {'time': datetime.datetime.now().strftime('
 
 
 SCRAPEOPS_API_KEY = 'd74c7df8-a747-468b-b6bc-594fd691e6eb'
-SCRAPEOPS_FAKE_USER_AGENT_ENABLED = True
+# SCRAPEOPS_FAKE_USER_AGENT_ENABLED = True
 SCRAPEOPS_NUM_RESULTS= 100
 
-DOWNLOADER_MIDDLEWARES = {
-    'myproject.middlewares.MyprojectSpiderMiddleware': 400,
-    'scrapeops_scrapy.middleware.retry.RetryMiddleware': 550,
-    'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
-}
+# DOWNLOADER_MIDDLEWARES = {
+#     'myproject.middlewares.MyprojectSpiderMiddleware': 400,
+#     'scrapeops_scrapy.middleware.retry.RetryMiddleware': 550,
+#     'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
+# }
 EXTENSIONS = {
     'scrapeops_scrapy.extension.ScrapeOpsMonitor': 500, 
 }
