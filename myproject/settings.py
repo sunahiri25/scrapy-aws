@@ -106,15 +106,15 @@ FEED_FORMAT = "csv"
 FEED_URI = "business_%(time)s.csv" % {'time': datetime.datetime.now().strftime('%Y%m%d%H%M%S')}
 
 
-SCRAPEOPS_API_KEY = 'd74c7df8-a747-468b-b6bc-594fd691e6eb'
+# SCRAPEOPS_API_KEY = 'd74c7df8-a747-468b-b6bc-594fd691e6eb'
 # SCRAPEOPS_FAKE_USER_AGENT_ENABLED = True
-SCRAPEOPS_NUM_RESULTS= 100
+# SCRAPEOPS_NUM_RESULTS= 100
 
 # DOWNLOADER_MIDDLEWARES = {
 #     'myproject.middlewares.MyprojectSpiderMiddleware': 400,
 #     'scrapeops_scrapy.middleware.retry.RetryMiddleware': 550,
 #     'scrapy.downloadermiddlewares.retry.RetryMiddleware': None,
 # }
-EXTENSIONS = {
-    'scrapeops_scrapy.extension.ScrapeOpsMonitor': 500, 
-}
+# EXTENSIONS = {
+#     'scrapeops_scrapy.extension.ScrapeOpsMonitor': 500, 
+# }
