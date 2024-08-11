@@ -1,6 +1,6 @@
 import scrapy
 import datetime
-
+import time
 class MySpider(scrapy.Spider):
     name = "myspider"
     allowed_domains = ["infodoanhnghiep.com"]
@@ -82,6 +82,7 @@ class MySpider(scrapy.Spider):
         # Lấy danh sách các doanh nghiệp
         for doanhnghiep in response.css('div.company-item'):
             link = doanhnghiep.css('h3.company-name a::attr(href)').get()
+            time.sleep(0.2)
             yield scrapy.Request(
                 url=link,
                 callback=self.parse_detail,
@@ -90,7 +91,7 @@ class MySpider(scrapy.Spider):
         # Tìm link đến trang tiếp theo
         current_page = response.css('ul.pagination li.active a::attr(href)').get()
         next_page = response.css('ul.pagination li.active + li a::attr(href)').get()
-        
+        time.sleep(0.2)
         if next_page is not None:
             yield response.follow(next_page, self.parse)
             
