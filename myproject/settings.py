@@ -17,7 +17,7 @@ NEWSPIDER_MODULE = "myproject.spiders"
 #USER_AGENT = "myproject (+http://www.yourdomain.com)"
 
 # Obey robots.txt rules
-# ROBOTSTXT_OBEY = True
+ROBOTSTXT_OBEY = True
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -25,13 +25,13 @@ NEWSPIDER_MODULE = "myproject.spiders"
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 3
+DOWNLOAD_DELAY = 0.2
 # The download delay setting will honor only one of:
 # CONCURRENT_REQUESTS_PER_DOMAIN = 16
 # CONCURRENT_REQUESTS_PER_IP = 16
 
 # Disable cookies (enabled by default)
-COOKIES_ENABLED = False
+# COOKIES_ENABLED = False
 
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED = False
@@ -70,7 +70,7 @@ COOKIES_ENABLED = False
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True
 # The initial download delay
-AUTOTHROTTLE_START_DELAY = 5
+# AUTOTHROTTLE_START_DELAY = 5
 # The maximum download delay to be set in case of high latencies
 # AUTOTHROTTLE_MAX_DELAY = 60
 # The average number of requests Scrapy should be sending in parallel to
@@ -92,18 +92,18 @@ REQUEST_FINGERPRINTER_IMPLEMENTATION = "2.7"
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
 
-DOWNLOADER_MIDDLEWARES = {
-    # ... Other middlewares
-    # 'scratest.middlewares.UARotatorMiddleware': 400,
-    'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
-    'scrapy_user_agents.middlewares.RandomUserAgentMiddleware': 400,
-}
+# DOWNLOADER_MIDDLEWARES = {
+#     # ... Other middlewares
+#     # 'scratest.middlewares.UARotatorMiddleware': 400,
+#     'scrapy.downloadermiddlewares.useragent.UserAgentMiddleware': None,
+#     'scrapy_user_agents.middlewares.RandomUserAgentMiddleware': 400,
+# }
 
-# Desired file format
-FEED_FORMAT = "csv"
+# # Desired file format
+# FEED_FORMAT = "csv"
  
-# Name of the file where data extracted is stored, time is appended to avoid overwriting
-FEED_URI = "business_%(time)s.csv" % {'time': datetime.datetime.now().strftime('%Y%m%d%H%M%S')}
+# # Name of the file where data extracted is stored, time is appended to avoid overwriting
+# FEED_URI = "business_%(time)s.csv" % {'time': datetime.datetime.now().strftime('%Y%m%d%H%M%S')}
 
 
 # SCRAPEOPS_API_KEY = 'd74c7df8-a747-468b-b6bc-594fd691e6eb'
@@ -118,3 +118,12 @@ FEED_URI = "business_%(time)s.csv" % {'time': datetime.datetime.now().strftime('
 # EXTENSIONS = {
 #     'scrapeops_scrapy.extension.ScrapeOpsMonitor': 500, 
 # }
+# Desired file format
+FEED_FORMAT = "csv"
+ 
+# Name of the file where data extracted is stored, time is appended to avoid overwriting
+FEED_URI = "infodoanhnghiep_%(time)s.csv" % {'time': datetime.datetime.now().strftime('%Y%m%d%H%M%S')}
+
+RETRY_ENABLED = True
+RETRY_HTTP_CODES = [429]  # Thử lại khi gặp lỗi 429
+RETRY_TIMES = 5  # Số lần thử lại
