@@ -31,7 +31,7 @@ class MySpider(scrapy.Spider):
         # "https://infodoanhnghiep.com/Gia-Lai/",
         # "https://infodoanhnghiep.com/Ha-Giang/",
         # "https://infodoanhnghiep.com/Ha-Nam/",
-        "https://infodoanhnghiep.com/Ha-Tinh/",
+        # "https://infodoanhnghiep.com/Ha-Tinh/",
         # "https://infodoanhnghiep.com/Hai-Duong/",
         # "https://infodoanhnghiep.com/Hau-Giang/",
         # "https://infodoanhnghiep.com/Hoa-Binh/",
@@ -66,7 +66,7 @@ class MySpider(scrapy.Spider):
         # "https://infodoanhnghiep.com/Tra-Vinh/",
         # "https://infodoanhnghiep.com/Tuyen-Quang/",
         # "https://infodoanhnghiep.com/Vinh-Long/",
-        # "https://infodoanhnghiep.com/Vinh-Phuc/",
+        "https://infodoanhnghiep.com/Vinh-Phuc/",
         # "https://infodoanhnghiep.com/Yen-Bai/"
     ]
 
