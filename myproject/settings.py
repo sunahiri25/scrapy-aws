@@ -7,6 +7,7 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 import datetime
+from re import S
 BOT_NAME = "myproject"
 
 SPIDER_MODULES = ["myproject.spiders"]
@@ -137,3 +138,8 @@ FEEDS = {
 
 AWS_ACCESS_KEY_ID = 'AKIA6DZW3JDPIZU4PYFX'
 AWS_SECRET_ACCESS_KEY = '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'
+
+# start url
+START_URLS = [
+    "https://infodoanhnghiep.com/Da-Nang/",
+]

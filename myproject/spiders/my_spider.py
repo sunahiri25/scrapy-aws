@@ -1,14 +1,18 @@
 import scrapy
 import datetime
 import time
+from scrapy.utils.project import get_project_settings
+
 class MySpider(scrapy.Spider):
     name = "myspider"
     allowed_domains = ["infodoanhnghiep.com"]
-    start_urls = [
+    settings = get_project_settings()
+    start_urls = settings.get('START_URLS')
+    # start_urls = [
         # "https://infodoanhnghiep.com/Ha-Noi/",
         # "https://infodoanhnghiep.com/TP-Ho-Chi-Minh/",
         # "https://infodoanhnghiep.com/Can-Tho/",
-        "https://infodoanhnghiep.com/Da-Nang/",
+        # "https://infodoanhnghiep.com/Da-Nang/",
         # "https://infodoanhnghiep.com/Hai-Phong/",
         # "https://infodoanhnghiep.com/An-Giang/",
         # "https://infodoanhnghiep.com/Ba-Ria-Vung-Tau/",
@@ -68,7 +72,8 @@ class MySpider(scrapy.Spider):
         # "https://infodoanhnghiep.com/Vinh-Long/",
         # "https://infodoanhnghiep.com/Vinh-Phuc/",
         # "https://infodoanhnghiep.com/Yen-Bai/"
-    ]
+    # ]
+        
 
     def parse(self, response):
         # # Lấy danh sách các doanh nghiệp
