@@ -6,19 +6,17 @@ from scrapy.utils.project import get_project_settings
 class MySpider(scrapy.Spider):
     name = "myspider"
     allowed_domains = ["infodoanhnghiep.com"]
-    def __init__(self, *args, **kwargs):
+    def __init__(self, start_urls = "https://infodoanhnghiep.com/Ha-Noi/", page_start=1, page_end=100, *args, **kwargs):
         super(MySpider, self).__init__(*args, **kwargs)
-        self.settings = get_project_settings()
-        self.page_start = self.settings.get('PAGE_START', 1)
-        self.page_end = self.settings.get('PAGE_END', 100)
-        self.start_urls = self.generate_start_urls()
+        self.start_urls = [start_urls]
+        self.page_start = int(page_start)
+        self.page_end = int(page_end)
 
-    def generate_start_urls(self):
-        urls = []
-        for url in self.settings.get('START_URLS'):
-            for page in range(self.page_start, self.page_end + 1):
-                urls.append(f"{url}trang-{page}/")
-        return urls
+    def start_requests(self):
+        for url in self.start_urls:
+            # for page in range(self.page_start, self.page_end + 1):
+            page_url = f"{url}trang-{self.page_start}/"
+            yield scrapy.Request(url=page_url, callback=self.parse)
 
     # settings = get_project_settings()
     # start_urls = settings.get('START_URLS')
@@ -89,6 +87,22 @@ class MySpider(scrapy.Spider):
     # ]
         
 
+    # def parse(self, response):
+    #     # Lấy danh sách các doanh nghiệp
+    #     for doanhnghiep in response.css('div.company-item'):
+    #         link = doanhnghiep.css('h3.company-name a::attr(href)').get()
+    #         yield scrapy.Request(
+    #             url=link,
+    #             callback=self.parse_detail,
+    #             meta={'link': link}
+    #         )
+        # # Tìm link đến trang tiếp theo
+        # current_page = response.css('ul.pagination li.active a::attr(href)').get()
+        # next_page = response.css('ul.pagination li.active + li a::attr(href)').get()
+        # # time.sleep(0.2)
+        # if next_page is not None:
+        #     yield response.follow(next_page, self.parse)
+        # Tìm link đến trang tiếp theo
     def parse(self, response):
         # Lấy danh sách các doanh nghiệp
         for doanhnghiep in response.css('div.company-item'):
@@ -98,13 +112,16 @@ class MySpider(scrapy.Spider):
                 callback=self.parse_detail,
                 meta={'link': link}
             )
-        # # Tìm link đến trang tiếp theo
-        # current_page = response.css('ul.pagination li.active a::attr(href)').get()
-        # next_page = response.css('ul.pagination li.active + li a::attr(href)').get()
-        # # time.sleep(0.2)
-        # if next_page is not None:
-        #     yield response.follow(next_page, self.parse)
-            
+        
+        # Tìm link đến trang tiếp theo, chỉ lấy trang trong khoảng page_start và page_end
+        current_page_number = response.css('ul.pagination li.active a::text').get()
+        current_page_number = int(current_page_number) if current_page_number else self.page_start
+
+        if current_page_number < self.page_end:
+            next_page_number = current_page_number + 1
+            next_page_url = f"{self.start_urls[0]}trang-{next_page_number}/"
+            yield scrapy.Request(url=next_page_url, callback=self.parse)
+
     def parse_detail(self, response):
         # Lấy dữ liệu chi tiết từ trang doanh nghiệp
         # Extract business information

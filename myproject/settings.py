@@ -139,10 +139,10 @@ FEEDS = {
 AWS_ACCESS_KEY_ID = 'AKIA6DZW3JDPIZU4PYFX'
 AWS_SECRET_ACCESS_KEY = '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'
 
-# start url
-START_URLS = [
-    "https://infodoanhnghiep.com/Da-Nang/",
-]
+# # start url
+# START_URLS = [
+#     "https://infodoanhnghiep.com/Da-Nang/",
+# ]
 
-PAGE_START = 1
-PAGE_END = 500  # Ví dụ: Số trang kết thúc
+# PAGE_START = 1
+# PAGE_END = 500  # Ví dụ: Số trang kết thúc
