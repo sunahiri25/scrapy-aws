@@ -143,3 +143,6 @@ AWS_SECRET_ACCESS_KEY = '9KJGiEiV+NBd0zVVqDKKI5NidLxc7e2raXTgqrZf'
 START_URLS = [
     "https://infodoanhnghiep.com/Da-Nang/",
 ]
+
+PAGE_START = 1
+PAGE_END = 500  # Ví dụ: Số trang kết thúc

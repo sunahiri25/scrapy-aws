@@ -6,8 +6,22 @@ from scrapy.utils.project import get_project_settings
 class MySpider(scrapy.Spider):
     name = "myspider"
     allowed_domains = ["infodoanhnghiep.com"]
-    settings = get_project_settings()
-    start_urls = settings.get('START_URLS')
+    def __init__(self, *args, **kwargs):
+        super(MySpider, self).__init__(*args, **kwargs)
+        self.settings = get_project_settings()
+        self.page_start = self.settings.get('PAGE_START', 1)
+        self.page_end = self.settings.get('PAGE_END', 100)
+        self.start_urls = self.generate_start_urls()
+
+    def generate_start_urls(self):
+        urls = []
+        for url in self.settings.get('START_URLS'):
+            for page in range(self.page_start, self.page_end + 1):
+                urls.append(f"{url}trang-{page}/")
+        return urls
+
+    # settings = get_project_settings()
+    # start_urls = settings.get('START_URLS')
     # start_urls = [
         # "https://infodoanhnghiep.com/Ha-Noi/",
         # "https://infodoanhnghiep.com/TP-Ho-Chi-Minh/",
@@ -76,29 +90,20 @@ class MySpider(scrapy.Spider):
         
 
     def parse(self, response):
-        # # Lấy danh sách các doanh nghiệp
-        # for doanhnghiep in response.css('div.company-item'):
-        #     yield {
-        #         'name': doanhnghiep.css('h3.company-name a::text').get(),
-        #         'link': doanhnghiep.css('h3.company-name a::attr(href)').get(),
-        #         'tax_code': doanhnghiep.css('p::text').re_first(r'Mã số thuế:\s*(\S+)'),
-        #         'address': doanhnghiep.css('p::text').re_first(r'Địa chỉ:\s*(.+)').replace('Địa chỉ: ','')
-        #     }
         # Lấy danh sách các doanh nghiệp
         for doanhnghiep in response.css('div.company-item'):
             link = doanhnghiep.css('h3.company-name a::attr(href)').get()
-            # time.sleep(0.2)
             yield scrapy.Request(
                 url=link,
                 callback=self.parse_detail,
                 meta={'link': link}
             )
-        # Tìm link đến trang tiếp theo
-        current_page = response.css('ul.pagination li.active a::attr(href)').get()
-        next_page = response.css('ul.pagination li.active + li a::attr(href)').get()
-        # time.sleep(0.2)
-        if next_page is not None:
-            yield response.follow(next_page, self.parse)
+        # # Tìm link đến trang tiếp theo
+        # current_page = response.css('ul.pagination li.active a::attr(href)').get()
+        # next_page = response.css('ul.pagination li.active + li a::attr(href)').get()
+        # # time.sleep(0.2)
+        # if next_page is not None:
+        #     yield response.follow(next_page, self.parse)
             
     def parse_detail(self, response):
         # Lấy dữ liệu chi tiết từ trang doanh nghiệp
